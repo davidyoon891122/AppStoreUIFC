@@ -7,8 +7,10 @@
 
 import UIKit
 import SnapKit
+import Kingfisher
 
 final class AppDetailViewController: UIViewController {
+    private let today: Today
     private lazy var appIconImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
@@ -50,12 +52,22 @@ final class AppDetailViewController: UIViewController {
         return button
     }()
     
+    init(today: Today) {
+        self.today = today
+        super.init(nibName: nil, bundle: nil)
+        
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setupViews()
-        self.appIconImageView.backgroundColor = .green
-        self.titleLabel.text = "물 마시기 운동"
-        self.subTitleLabel.text = "하루에 2리터, 도전해보세요."
+        self.appIconImageView.kf.setImage(with: today.image)
+        self.titleLabel.text = today.title
+        self.subTitleLabel.text = today.subTitle
         self.view.backgroundColor = .systemBackground
     }
     
