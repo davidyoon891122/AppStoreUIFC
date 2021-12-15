@@ -1,0 +1,114 @@
+//
+//  AppDetailViewController.swift
+//  AppStoreApp
+//
+//  Created by David Yoon on 2021/12/15.
+//
+
+import UIKit
+import SnapKit
+
+final class AppDetailViewController: UIViewController {
+    private lazy var appIconImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.contentMode = .scaleAspectFill
+        imageView.clipsToBounds = true
+        imageView.layer.cornerRadius = 8
+        
+        return imageView
+    }()
+    
+    private lazy var titleLabel: UILabel = {
+        let label = UILabel()
+        label.font = .systemFont(ofSize: 20, weight: .bold)
+        label.textColor = .label
+        return label
+    }()
+    
+    private lazy var subTitleLabel: UILabel = {
+        let label = UILabel()
+        label.font = .systemFont(ofSize: 14, weight: .medium)
+        label.textColor = .secondaryLabel
+        return label
+    }()
+    
+    private lazy var downloadButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("받기", for: .normal)
+        button.titleLabel?.font = .systemFont(ofSize: 13.0, weight: .bold)
+        button.backgroundColor = .systemBlue
+        button.setTitleColor(.white, for: .normal)
+        button.layer.cornerRadius = 12
+        
+        return button
+    }()
+    
+    private lazy var shareButton: UIButton = {
+        let button = UIButton()
+        button.setImage(UIImage(systemName: "square.and.arrow.up"), for: .normal)
+        button.tintColor = .systemBlue
+        return button
+    }()
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        self.setupViews()
+        self.appIconImageView.backgroundColor = .green
+        self.titleLabel.text = "물 마시기 운동"
+        self.subTitleLabel.text = "하루에 2리터, 도전해보세요."
+        self.view.backgroundColor = .systemBackground
+    }
+    
+    
+    
+}
+
+
+private extension AppDetailViewController {
+    func setupViews() {
+        [
+            self.appIconImageView,
+            self.titleLabel,
+            self.subTitleLabel,
+            self.downloadButton,
+            self.shareButton
+        ].forEach{
+            self.view.addSubview($0)
+        }
+        
+        self.appIconImageView.snp.makeConstraints{
+            $0.leading.equalToSuperview().inset(16)
+            $0.top.equalToSuperview().inset(32)
+            $0.height.equalTo(100)
+            $0.width.equalTo(self.appIconImageView.snp.height)
+        }
+        
+        self.titleLabel.snp.makeConstraints{
+            $0.top.equalTo(self.appIconImageView.snp.top)
+            $0.leading.equalTo(self.appIconImageView.snp.trailing).offset(16)
+            $0.trailing.equalToSuperview().inset(16)
+        }
+        
+        self.subTitleLabel.snp.makeConstraints{
+            $0.top.equalTo(self.titleLabel.snp.bottom).offset(4)
+            $0.leading.equalTo(self.titleLabel.snp.leading)
+        }
+        
+        self.downloadButton.snp.makeConstraints{
+            $0.leading.equalTo(self.titleLabel.snp.leading)
+            $0.bottom.equalTo(self.appIconImageView.snp.bottom)
+            $0.height.equalTo(24)
+            $0.width.equalTo(60)
+        }
+        
+        self.shareButton.snp.makeConstraints{
+            $0.trailing.equalTo(self.titleLabel.snp.trailing)
+            $0.bottom.equalTo(self.appIconImageView.snp.bottom)
+            $0.height.equalTo(32)
+            $0.width.equalTo(32)
+        }
+        
+        
+        
+    }
+}
